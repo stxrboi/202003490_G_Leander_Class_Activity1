@@ -27,6 +27,6 @@ jobs:
 
       - name: Save results
         run: |
-          cp results.txt actual_vs_predicted.png output/
+          cp results.txt actual_vs_predicted.png 
 
 
