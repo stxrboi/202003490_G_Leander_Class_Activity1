@@ -2,13 +2,17 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn import metrics
+import matplotlib.pyplot as plt
+import seaborn as sns
 
+#read in data
 df_raw = pd.read_csv("data.csv", sep=";")
 
+#transform/tidy up data
 df = df_raw.melt(id_vars=["H03", "H05", "H16"],
                  var_name="Date", value_name="sales")
 
-df[["Prefix", "Month", "Year"]] = df["Date"].astype(
+df[["Prefix", "Month", "Year"]] = df["Date"].astype(  #splits MO041980 into Prefix MO month 04 and year 1980
     "str").str.extract(r'(MO)(\d{2})(\d{4})')
 
 df["date"] = pd.to_datetime(df["Year"].astype(
@@ -44,3 +48,14 @@ print("R2 Score:", r2_score)
 # Writing the result to a file
 with open('results.txt', 'w') as f:
     f.write(f"R2 Score: {r2_score}\n")
+
+# Plotting a scatterplot of actual vs predicted values
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x=y_test, y=y_pred)
+plt.xlabel('Actual')
+plt.ylabel('Predicted')
+plt.title('Actual vs. Predicted')
+#save the figure
+plt.savefig('actual_vs_predicted.png') 
+#display plot
+plt.show()
