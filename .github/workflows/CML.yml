@@ -1,4 +1,4 @@
-name: Class Activity-1
+name: CML
 on: [push]
 jobs:
   train-and-report:
@@ -20,9 +20,5 @@ jobs:
           # Post reports as comments in GitHub PRs
           echo '## Performance' > report.md
           cat results.txt >> report.md
-
-          echo "## Plot" >> report.md
-          cml-publish actual_vs_predicted.png --md >> report.md
+          echo '![](./actual_vs_predicted.png "Predicted vs Actual")' >> report.md
           cml comment create report.md
-
-          cml-send-comment report.md
