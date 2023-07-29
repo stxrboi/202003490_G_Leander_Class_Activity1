@@ -20,5 +20,5 @@ jobs:
           # Post reports as comments in GitHub PRs
           echo '## Performance' > report.md
           cat results.txt >> report.md
-          echo '![](./actual_vs_predicted.png "Predicted vs Actual")' >> report.md
+          echo '![](actual_vs_predicted.png "Predicted vs Actual")' >> report.md
           cml comment create report.md
